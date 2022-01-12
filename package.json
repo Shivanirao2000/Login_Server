@@ -1,0 +1,20 @@
+{
+  "name": "newloginserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.2",
+    "express-fileupload": "^1.2.1",
+    "http": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.1",
+    "upload": "^1.1.1"
+  }
+}
