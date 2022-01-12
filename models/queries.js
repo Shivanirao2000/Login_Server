@@ -9,9 +9,9 @@ queries.auth = {
 
   signupcheck(username){ return `SELECT employeeid FROM users WHERE username = '${username}';`},
 
-  passwordchangecheck: `SELECT employeeid FROM users WHERE employeeid = ?;`,
+  passwordchangecheck: `SELECT employeeid FROM users WHERE employeeid = $1;`,
 
-  passwordupdate: `UPDATE users SET password = ? WHERE employeeid = ?;`,
+  passwordupdate: `UPDATE users SET password = ? WHERE employeeid = $1;`,
 
   signupinsert(username,employeeid,password,mobilenumber,email){return  `INSERT INTO users (username, employeeid, password, mobilenumber, email) values ('${username}','${employeeid}','${password}','${mobilenumber}','${email}');`},
 
