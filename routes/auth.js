@@ -42,14 +42,13 @@ router.post("/signin", (req, res) => {
             )
           );
       } else {
-        let d1 = new Date();
-        let time = d1.toLocaleTimeString({ timeZone: "Asia/Kolkata" });
         const token = jwt.sign(
           {
             employee_id: result.rows[0].employeeid,
+            role: result.rows[0].designation,
+            department: result.rows[0].department,
           },
-          SECRET,
-          { expiresIn: "2d" }
+          SECRET
         );
         
         db.query(
@@ -143,7 +142,6 @@ router.post("/signup", (req, res) => {
     } else if (!rows.length) {
       try {
         const hashed = await bcrypt.hash(req.body.password, 10);
-        console.log("henlo")
 
         db.query(
           queries.auth.signupinsert(
@@ -184,52 +182,6 @@ router.post("/signup", (req, res) => {
 });
 
 
-
-router.get("/getusers",(req,res)=>{
-
-
-  db.query(queries.auth.getusers,(err,rows)=>
-  {
-    if(err){
-      console.log(err)
-      res
-      .status(500)
-      .send(responsemodel.model1("Internal Server Error: " + err, "ERROR"));
-    }else{
-      rows.rows.forEach((item)=>{
-        item.password=undefined;
-      })
-      res
-      .status(200)
-      .send(responsemodel.model1(rows.rows, "Success"));
-    }
-  })
-
-
-});
-
-router.get("/getuser", token.validation, (req,res)=>{
-
-  let employeeid = req.tokenpayload.employee_id;
-
-  db.query(queries.auth.getuser, [employeeid],(err,rows)=>
-  {
-    if(err){
-      console.log(err)
-      res
-      .status(500)
-      .send(responsemodel.model1("Internal Server Error: " + err, "ERROR"));
-    }else{
-       rows.rows[0].password=undefined;
-     
-      res
-      .status(200)
-      .send(responsemodel.model1(rows.rows[0], "Success"));
-    }
-  })
-
-
-});
 
 
 module.exports = router;

@@ -1,12 +1,5 @@
 const express = require("express");
-// const fs = require("fs");
-const http = require("http");
-// const https = require("https");
 
-// var privateKey = fs.readFileSync("./certificate/key.pem", "utf8");
-// var certificate = fs.readFileSync("./certificate/cert.pem", "utf8");
-
-// const credentials = { key: privateKey, cert: certificate };
 
 const app = express();
 
@@ -16,10 +9,13 @@ app.use(express.urlencoded({ extended: false }));
 
 // Router imports
 const authRouter = require("./routes/auth");
+const userRouter = require("./routes/user");
 
 
 // Use
 app.use("/auth", authRouter);
+app.use("/user", userRouter);
+
 
 
 app.get("/", (req, res) => {
@@ -35,12 +31,9 @@ app.get("*", (req, res) => {
 });
 
 
-// var httpsServer = https.createServer(credentials, app);
 
 app.listen(3000, () => {
   console.log("Running on port 3000...");
 });
 
-// httpsServer.listen(process.env.PORT || 443, () => {
-//   console.log("Running on port 443...");
-// });
+
